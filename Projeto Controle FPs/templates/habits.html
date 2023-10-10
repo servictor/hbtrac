@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+{% import 'macros.jinja2' as macros%}
+
+{%block main_content%}
+    <section class="habit-list">
+        {%for habit in habits%}
+            {% set completed = habit["_id"] in completions%}
+            {% if completed%}
+                <div class="habit completed">
+                    <p class="habit__name">
+                    {{habit["Nome"]}}
+                    </p>
+                    <p>
+                        <svg width="35px" height="35px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="48" height="48" fill="white" fill-opacity="0.01"/>
+                        <path d="M14 24L15.25 25.25M44 14L24 34L22.75 32.75" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4 24L14 34L34 14" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </p>
+                </div>
+            {% else %}
+                {%if habit['Ativo']%}
+                    <div class="habit">
+                        <form method="POST" class="habit__form" action="{{url_for('habits.complete')}}">
+                            <input type="hidden" name="habitId" value="{{habit['_id']}}"/>
+                            <input type="hidden" name="date" value="{{selected_date}}"/>
+                            <button type="submit" class="habit__button">
+                                {{habit["Nome"]}}
+                            </button>                        
+                        </form>
+                    </div>
+                {%endif%}
+            {% endif %}
+        {%endfor%}
+    </section>
+{%endblock%}

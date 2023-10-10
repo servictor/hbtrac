@@ -1,0 +1,53 @@
+{% extends 'base.html'%}
+{% import 'macros.jinja2' as macros%}
+
+{%block content2%}
+<section class="drop__section">
+{%for habit in habits%}
+{% set drop = habit["_id"] in dropped%}
+    {% if drop%}
+        <form method="POST" class="drop__form" action="{{url_for('habits.deletahabito')}}">
+            <input type="hidden" name="habitId" value="{{habit['_id']}}" />
+            <input type="hidden" name="date" value="{{selected_date}}" />
+            <input type="hidden" name="confirmation" value="S" />
+            <button type="submit" class="drop__selected">
+                <span>
+                    {{habit["Nome"]}}
+                </span>
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="drop__icon" viewBox="0 0 512 512">
+                    <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none"
+                    stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+                    d="M320 320L192 192M192 320l128-128" />
+                    </svg>
+                </span>
+            </button>
+        </form>
+    {% else %}
+        <form method="POST" class="drop__form" action="{{url_for('habits.deletahabito')}}">
+            <input type="hidden" name="habitId" value="{{habit['_id']}}" />
+            <input type="hidden" name="date" value="{{selected_date}}" />
+            <input type="hidden" name="confirmation" value="U" />
+            <button type="submit" class="drop__unselected">
+                <span>
+                    {{habit["Nome"]}}
+                </span>
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="drop__icon" viewBox="0 0 512 512">
+                    <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none"
+                    stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+                    d="M320 320L192 192M192 320l128-128" />
+                    </svg>
+                </span>
+            </button>
+        </form>
+{% endif %}
+{%endfor%}
+<form method="POST" class="confirm__buton" action="{{url_for('habits.deletahabito')}}">
+    <input type="hidden" name="confirmation" value="Y" />
+    <button type="submit" class="confirm__button">Confirm</button>
+</form>
+</section>
+{%endblock%}

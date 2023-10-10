@@ -1,0 +1,9 @@
+{% extends 'base.html'%}
+{% import 'macros.jinja2' as macros%}
+
+{%block content%}
+    <form class="form" method="POST">
+        <textarea class="form__input" id="habit" name="habit" row ="3" placeholder="Add new daily habit"></textarea>
+        <button class="form__button" type="submit">Add</button>
+    </form>
+{%endblock%}

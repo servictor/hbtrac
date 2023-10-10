@@ -1,0 +1,25 @@
+1-> Criar o ambiente virtual na pasta do projeto:
+    pyenv exec python -m venv .venv
+    ativar: source .venv/bin/activate
+
+2-> Instalar as versões dos pacotes utilizados conforme o arquivo "requirements.txt":
+    pip install Flask
+    pip install pymongo[srv]
+    pip install python-dotenv
+
+* Atenção, a versão do DNS é instalada pelo MONGODB e é muito nova para ser utilizada no Render.com,
+não muda nada para as utilizações em ambiente de desenvolvimento porém precisa mudar o requirements para
+a versão suportada no Render.com
+
+3-> para rodar o ambiente de desenvolvimento:
+    -> source .venv/bin/activate
+    -> export FLASK_APP=app.py
+    -> export FLASK_ENV=develop
+    -> flask run
+
+4-> Não esquecer de colocar todo o codigo do app dentro de uma função:
+    -> def create_app():
+    -> inlcuir todas as instruções do arquivo principal dentro desta função.
+    -> finalizar com: return app 
+    
+

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+    <title>{{ title or "Todos"}}</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='CSS/style.css')}}">
+    {%block head_content%}
+    {%endblock%}
+</head>
+<body>
+    <header class="header">
+        <h1 class="header__logo"><a href="{{ url_for('habits.habitos')}}" class="header__link">Habits</a></h1>
+        {% if "novo" not in request.endpoint and "deleta" not in request.endpoint%}
+            <div class="header__link">
+                <a href="{{ url_for('habits.novohabito')}}" class="header__link__add">Add</a>
+                <a href="{{ url_for('habits.deletahabito')}}" class="header__link__drop">Drop</a>
+            </div>
+        {%else%}
+            <div class="header__link">
+                <a href="{{ url_for('habits.habitos')}}" class="header__link__back">Back</a>
+            </div>
+        {% endif %}
+    </header>
+    <main class="main">
+        <section class="dates">
+            {%for date in date_range(selected_date)%}
+                <a 
+                class="dates__link {{'dates__link--current' if loop.index0 ==3 else''}}"
+                href="{{url_for('habits.habitos', date=date)}}"
+                >
+                    <time class="date" datetime="{{date}}">
+                        <span>{{date.strftime("%a")}}</span>
+                        <span>{{date.strftime("%d")}}</span>
+                    </time>
+                </a>
+            {%endfor%}
+        </section>
+        {%block main_content%}
+        {%endblock%}
+        {%block content%}
+        {%endblock%}
+        {%block content2%}
+        {%endblock%}
+    </main>
+</body>
+</html>
